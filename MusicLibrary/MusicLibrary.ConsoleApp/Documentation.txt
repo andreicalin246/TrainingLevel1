@@ -1,0 +1,14 @@
+﻿1. Sa se faca o program in care se pot adauga, edita, afisa, sterge melodii. Melodiile au urmatoarele proprietati:
+
+Melodie
+->Nume
+->Durata
+->An lansare
+->Formatie
+
+MusicLibrary
+ - List<Melody>
+
+
+Melody
+ .....
