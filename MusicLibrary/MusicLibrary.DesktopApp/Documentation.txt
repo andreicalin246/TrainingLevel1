@@ -1,0 +1,3 @@
+﻿1. Add an icon to our application
+2. Add delete and edit
+3. Work on UI/UX
