@@ -10,22 +10,32 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+// todo: remove and sort the usings (right click->Remove and sort)
+
 namespace MusicLibrary.DesktopApp
 {
+    // todo: renamethe form
     public partial class Form1 : Form
     {
+        #region Private Fields
+
+        private SongLibrary songLibrary;
+
+        #endregion Private Fields
+
         // todo: regions
         public Form1()
         {
             InitializeComponent();
+            songLibrary = SongLibrary.Instance();
+            SongLibraryService.Populate();
         }
 
         #region Events
 
         private void BtnList_Click(object sender, EventArgs e)
         {
-            var songLibrary = new SongLibrary();
-            SongLibraryService.Populate(songLibrary);
+            SongList.Items.Clear();
 
             foreach (var song in songLibrary.Songs)
             {
@@ -33,27 +43,36 @@ namespace MusicLibrary.DesktopApp
             }
         }
 
+        // todo: rename the method (start with upper letter)
+        // todo: rename button1
         private void button1_Click(object sender, EventArgs e)
         {
             if (SongList.SelectedItem != null)
             {
+                // remove from library
+                var song = (Song)SongList.SelectedItem;
+                SongLibraryService.DeleteSong(song.Id);
+
+                // remove from screen
                 SongList.Items.RemoveAt(SongList.Items.IndexOf(SongList.SelectedItem));
             }
         }
 
-
-		private void button2_Click(object sender, EventArgs e)
+        // todo: rename the method (start with upper letter)
+        // todo: rename button2
+        private void button2_Click(object sender, EventArgs e)
 		{
             if (SongList.SelectedItem != null)
             {
-                EditForm editForm = new EditForm();
-                editForm.Song = (Song)SongList.SelectedItem;
+                var song = (Song)SongList.SelectedItem;
+                EditForm editForm = new EditForm(song);
                 editForm.ShowDialog();
             }
         }
 
 		#endregion Events
 
+        // todo: remove this events
 		private void Form1_Load(object sender, EventArgs e)
 		{
 

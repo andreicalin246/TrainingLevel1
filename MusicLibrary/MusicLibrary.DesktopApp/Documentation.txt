@@ -1,3 +1,5 @@
-﻿1. Add an icon to our application
-2. Add delete and edit
-3. Work on UI/UX
+﻿1. Edit form - UI
+2. Form1 resizeable
+3. Edit form fix
+4. Add song
+5. all todos (13)

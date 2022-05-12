@@ -15,8 +15,8 @@ namespace MusicLibrary.ConsoleApp
 			Console.WriteLine("Welcome to Gold Library!");
 			Console.WriteLine("------------------------\n");
 
-            var songLibrary = new SongLibrary();
-            SongLibraryService.Populate(songLibrary);
+            var songLibrary = SongLibrary.Instance();
+            SongLibraryService.Populate();
 
             songLibrary.DisplaySongs();
 
@@ -29,10 +29,10 @@ namespace MusicLibrary.ConsoleApp
             Console.WriteLine("\nAfter delete new list!");
             Console.WriteLine("------------------------\n");
 
-            songLibrary.DeleteSong(6);
+            SongLibraryService.DeleteSong(6);
             songLibrary.DisplaySongs();
 
-			songLibrary.DeleteAllSongs();
+			// todo: songLibrary.DeleteAllSongs();
 
             Console.ReadLine();
         }

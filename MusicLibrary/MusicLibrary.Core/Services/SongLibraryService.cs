@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace MusicLibrary.Core.Services
 {
-    public class SongLibraryService
+    public static class SongLibraryService
     {
-        // todo: regions
-        public static void Populate(SongLibrary songLibrary)
+        #region Public Methods
+
+        public static void Populate()
         {
+            SongLibrary songLibrary = SongLibrary.Instance();
             Song song1 = new Song(1, "Love Me Do", "Beatles", new TimeSpan(0, 2, 21), 1963);
             Song song2 = new Song(2, "Highway To Hell", "AC/DC", new TimeSpan(0, 3, 28), 1979);
             Song song3 = new Song(3, "Sweet Child O'Mine", "Guns N'Roses", new TimeSpan(0, 5, 21), 1987);
@@ -25,5 +27,14 @@ namespace MusicLibrary.Core.Services
             songLibrary.AddSong(song5);
             songLibrary.AddSong(song6);
         }
+
+        public static void DeleteSong(int songId)
+        {
+            SongLibrary songLibrary = SongLibrary.Instance();
+            var songToDelete = songLibrary.Songs.Single(s => s.Id == songId);
+            songLibrary.Songs.Remove(songToDelete);
+        }
+
+        #endregion Public Methods
     }
 }

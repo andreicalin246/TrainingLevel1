@@ -8,26 +8,37 @@ namespace MusicLibrary.Core
 {
 	public class SongLibrary
 	{
-        #region Properties
+		#region Private Fileds
 
-        public List<Song> Songs { get; set; }
+		private static SongLibrary instance = new SongLibrary();
+
+		#endregion Private Fields
+
+		#region Properties
+
+		public List<Song> Songs { get; set; }
 
         #endregion Properties
 
         #region Constructors
 
-        public SongLibrary()
+        private SongLibrary()
 		{
 			Songs = new List<Song>();
 		}
 
-        #endregion Constructors
+		#endregion Constructors
 
-        // todo: move this methods in SongLibraryService
+		#region Public Methods
 
-        #region Public Methods
+		public static SongLibrary Instance()
+		{
+			return instance;
+		}
+		
+		// todo: move this methods in SongLibraryService
 
-        public void AddSong(Song song)
+		public void AddSong(Song song)
 		{
 			Songs.Add(song);
 		}
@@ -48,12 +59,6 @@ namespace MusicLibrary.Core
 			}
 		}
 
-		public void DeleteSong(int songId)
-		{
-			var songToDelete = Songs.Single(s => s.Id == songId);
-			Songs.Remove(songToDelete); 
-		}
-
 		public void DisplaySongs()
 		{
 			foreach (Song song in Songs)
@@ -62,17 +67,17 @@ namespace MusicLibrary.Core
 			}
 		}
 
-		//public void DeleteAllSongs(ref List<String> Songs)
-		//{
-		//	List<int> itemsToRemove = new List<int>();
-		//	for (int i = 0; i < Songs.Count; i++)
-		//		if (i % 5 == 0)
-		//			Songs.Remove(Songs[i]);
-		}
-		// todo: delete all songs
+        //public void DeleteAllSongs(ref List<String> Songs)
+        //{
+        //	List<int> itemsToRemove = new List<int>();
+        //	for (int i = 0; i < Songs.Count; i++)
+        //		if (i % 5 == 0)
+        //			Songs.Remove(Songs[i]);
+        //}
+        // todo: delete all songs
 
-		#endregion Public Methods
-	}
+        #endregion Public Methods
+    }
 }
 
 	
