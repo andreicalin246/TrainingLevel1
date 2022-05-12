@@ -31,6 +31,9 @@ namespace MusicLibrary.ConsoleApp
 
             songLibrary.DeleteSong(6);
             songLibrary.DisplaySongs();
+
+			songLibrary.DeleteAllSongs();
+
             Console.ReadLine();
         }
     }

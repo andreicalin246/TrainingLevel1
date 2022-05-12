@@ -15,7 +15,6 @@ namespace MusicLibrary.DesktopApp
     public partial class Form1 : Form
     {
         // todo: regions
-
         public Form1()
         {
             InitializeComponent();
@@ -30,10 +29,39 @@ namespace MusicLibrary.DesktopApp
 
             foreach (var song in songLibrary.Songs)
             {
-                listBox1.Items.Add(song);
+                SongList.Items.Add(song);
             }
         }
 
-        #endregion Events
-    }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (SongList.SelectedItem != null)
+            {
+                SongList.Items.RemoveAt(SongList.Items.IndexOf(SongList.SelectedItem));
+            }
+        }
+
+
+		private void button2_Click(object sender, EventArgs e)
+		{
+            if (SongList.SelectedItem != null)
+            {
+                EditForm editForm = new EditForm();
+                editForm.Song = (Song)SongList.SelectedItem;
+                editForm.ShowDialog();
+            }
+        }
+
+		#endregion Events
+
+		private void Form1_Load(object sender, EventArgs e)
+		{
+
+		}
+
+		private void pictureBox1_Click(object sender, EventArgs e)
+		{
+
+		}
+	}
 }

@@ -35,7 +35,6 @@ namespace MusicLibrary.Core
 
 		#endregion Constructors
 
-
 		#region Public Methods
 
 		public override string ToString()

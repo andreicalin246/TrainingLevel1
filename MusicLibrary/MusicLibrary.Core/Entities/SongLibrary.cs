@@ -62,6 +62,13 @@ namespace MusicLibrary.Core
 			}
 		}
 
+		//public void DeleteAllSongs(ref List<String> Songs)
+		//{
+		//	List<int> itemsToRemove = new List<int>();
+		//	for (int i = 0; i < Songs.Count; i++)
+		//		if (i % 5 == 0)
+		//			Songs.Remove(Songs[i]);
+		}
 		// todo: delete all songs
 
 		#endregion Public Methods
