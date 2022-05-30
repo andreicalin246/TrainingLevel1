@@ -1,5 +1,6 @@
-﻿1. Edit form - UI
-2. Form1 resizeable
-3. Edit form fix
-4. Add song
-5. all todos (13)
+﻿1. Sa termini serviciul de file
+2. Sa termini add-ul
+3. Sa mai faci un serviciu de file SongLibraryXmlService (totul trebuie salvat ca xml)
+hints:
+	serializare obiect in xml, deserializare obiect xml
+4. Sa mai faci un serviciu de file SongLibraryJsonService (totul trebuie salvat ca json)

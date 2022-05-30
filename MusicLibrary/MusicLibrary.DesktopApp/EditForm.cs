@@ -4,7 +4,6 @@ using System.Windows.Forms;
 
 namespace MusicLibrary.DesktopApp
 {
-	// todo: regions, nameing conventions, 
 	public partial class EditForm : Form
 	{
         #region Private Fields

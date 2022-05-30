@@ -15,34 +15,33 @@ namespace MusicLibrary.ConsoleApp
 			Console.WriteLine("Welcome to Gold Library!");
 			Console.WriteLine("------------------------\n");
 
+			var libraryService = new SongLibraryMemoryService();
             var songLibrary = SongLibrary.Instance();
-            SongLibraryService.Populate(songLibrary);
+			libraryService.Populate();
 
 			Console.WriteLine("This is one song:");
-			SongLibraryService.DisplayOneSong(songLibrary, 5);
+			libraryService.DisplayOneSong(5);
 			Console.WriteLine("------------------------\n");
 
-			SongLibraryService.DisplaySongs(songLibrary);
+			libraryService.DisplaySongs();
 
             Console.WriteLine("\nAfter edit new list!");
             Console.WriteLine("------------------------\n");
 
-			SongLibraryService.EditSong(songLibrary, 4, "Pita cu Unsoare", "Sandu Ciorba", new TimeSpan(0, 4, 02), 2007);
-			SongLibraryService.DisplaySongs(songLibrary);
+			libraryService.EditSong(4, "Pita cu Unsoare", "Sandu Ciorba", new TimeSpan(0, 4, 02), 2007);
+			libraryService.DisplaySongs();
 
 			Console.WriteLine("\nAfter delete new list!");
             Console.WriteLine("------------------------\n");
 
-            SongLibraryService.DeleteSong(songLibrary, 6);
-			SongLibraryService.DisplaySongs(songLibrary);
+			libraryService.DeleteSong(6);
+			libraryService.DisplaySongs();
 
 			Console.WriteLine("The List is empty:");
 
-			SongLibraryService.DeleteAllSongs(songLibrary);
-			SongLibraryService.DisplaySongs(songLibrary);
+			libraryService.DeleteAllSongs();
+			libraryService.DisplaySongs();
 					
-			// todo: songLibrary.DeleteAllSongs();
-
 			Console.ReadLine();
         }
     }
