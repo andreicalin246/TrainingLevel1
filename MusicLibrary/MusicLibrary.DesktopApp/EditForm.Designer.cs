@@ -29,116 +29,151 @@ namespace MusicLibrary.DesktopApp
 		/// </summary>
 		private void InitializeComponent()
 		{
-            this.songDetailsGroupBox = new System.Windows.Forms.GroupBox();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.songYear = new System.Windows.Forms.TextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.bandName = new System.Windows.Forms.TextBox();
-            this.songName = new System.Windows.Forms.TextBox();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.songDetailsGroupBox.SuspendLayout();
-            this.SuspendLayout();
-            // 
-            // songDetailsGroupBox
-            // 
-            this.songDetailsGroupBox.Controls.Add(this.btnSave);
-            this.songDetailsGroupBox.Controls.Add(this.songYear);
-            this.songDetailsGroupBox.Controls.Add(this.label1);
-            this.songDetailsGroupBox.Controls.Add(this.bandName);
-            this.songDetailsGroupBox.Controls.Add(this.songName);
-            this.songDetailsGroupBox.Controls.Add(this.label3);
-            this.songDetailsGroupBox.Controls.Add(this.label2);
-            this.songDetailsGroupBox.Location = new System.Drawing.Point(34, 68);
-            this.songDetailsGroupBox.Name = "songDetailsGroupBox";
-            this.songDetailsGroupBox.Size = new System.Drawing.Size(336, 181);
-            this.songDetailsGroupBox.TabIndex = 2;
-            this.songDetailsGroupBox.TabStop = false;
-            this.songDetailsGroupBox.Text = "Song Details";
-            // 
-            // btnSave
-            // 
-            this.btnSave.Location = new System.Drawing.Point(118, 141);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 8;
-            this.btnSave.Text = "Save";
-            this.btnSave.UseVisualStyleBackColor = true;
-            this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
-            // 
-            // songYear
-            // 
-            this.songYear.Location = new System.Drawing.Point(118, 95);
-            this.songYear.Name = "songYear";
-            this.songYear.Size = new System.Drawing.Size(145, 23);
-            this.songYear.TabIndex = 7;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(15, 98);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(29, 15);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "Year";
-            // 
-            // bandName
-            // 
-            this.bandName.Location = new System.Drawing.Point(118, 61);
-            this.bandName.Name = "bandName";
-            this.bandName.Size = new System.Drawing.Size(145, 23);
-            this.bandName.TabIndex = 3;
-            // 
-            // songName
-            // 
-            this.songName.Location = new System.Drawing.Point(118, 26);
-            this.songName.Name = "songName";
-            this.songName.Size = new System.Drawing.Size(145, 23);
-            this.songName.TabIndex = 2;
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(15, 61);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(34, 15);
-            this.label3.TabIndex = 1;
-            this.label3.Text = "Band";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(15, 29);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(39, 15);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "Name";
-            // 
-            // EditForm
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(404, 316);
-            this.Controls.Add(this.songDetailsGroupBox);
-            this.Name = "EditForm";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "EditForm";
-            this.Load += new System.EventHandler(this.EditForm_Load);
-            this.songDetailsGroupBox.ResumeLayout(false);
-            this.songDetailsGroupBox.PerformLayout();
-            this.ResumeLayout(false);
+			this.SongDetailsGroupBox = new System.Windows.Forms.GroupBox();
+			this.BtnSave = new System.Windows.Forms.Button();
+			this.SongYear = new System.Windows.Forms.TextBox();
+			this.EditYear = new System.Windows.Forms.Label();
+			this.BandName = new System.Windows.Forms.TextBox();
+			this.SongName = new System.Windows.Forms.TextBox();
+			this.EditBand = new System.Windows.Forms.Label();
+			this.EditName = new System.Windows.Forms.Label();
+			this.EditSongDetailsLabel = new System.Windows.Forms.Label();
+			this.EditSongPanel = new System.Windows.Forms.Panel();
+			this.SongDetailsGroupBox.SuspendLayout();
+			this.EditSongPanel.SuspendLayout();
+			this.SuspendLayout();
+			// 
+			// SongDetailsGroupBox
+			// 
+			this.SongDetailsGroupBox.Controls.Add(this.BtnSave);
+			this.SongDetailsGroupBox.Controls.Add(this.SongYear);
+			this.SongDetailsGroupBox.Controls.Add(this.EditYear);
+			this.SongDetailsGroupBox.Controls.Add(this.BandName);
+			this.SongDetailsGroupBox.Controls.Add(this.SongName);
+			this.SongDetailsGroupBox.Controls.Add(this.EditBand);
+			this.SongDetailsGroupBox.Controls.Add(this.EditName);
+			this.SongDetailsGroupBox.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+			this.SongDetailsGroupBox.Location = new System.Drawing.Point(34, 68);
+			this.SongDetailsGroupBox.Name = "SongDetailsGroupBox";
+			this.SongDetailsGroupBox.Size = new System.Drawing.Size(336, 181);
+			this.SongDetailsGroupBox.TabIndex = 2;
+			this.SongDetailsGroupBox.TabStop = false;
+			// 
+			// BtnSave
+			// 
+			this.BtnSave.BackColor = System.Drawing.Color.Gold;
+			this.BtnSave.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+			this.BtnSave.Location = new System.Drawing.Point(118, 141);
+			this.BtnSave.Name = "BtnSave";
+			this.BtnSave.Size = new System.Drawing.Size(116, 34);
+			this.BtnSave.TabIndex = 8;
+			this.BtnSave.Text = "Save";
+			this.BtnSave.UseVisualStyleBackColor = false;
+			this.BtnSave.Click += new System.EventHandler(this.BtnSave_Click);
+			// 
+			// SongYear
+			// 
+			this.SongYear.Location = new System.Drawing.Point(118, 95);
+			this.SongYear.Name = "SongYear";
+			this.SongYear.Size = new System.Drawing.Size(145, 23);
+			this.SongYear.TabIndex = 7;
+			// 
+			// EditYear
+			// 
+			this.EditYear.AutoSize = true;
+			this.EditYear.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+			this.EditYear.Location = new System.Drawing.Point(15, 98);
+			this.EditYear.Name = "EditYear";
+			this.EditYear.Size = new System.Drawing.Size(60, 25);
+			this.EditYear.TabIndex = 4;
+			this.EditYear.Text = "Year";
+			// 
+			// BandName
+			// 
+			this.BandName.Location = new System.Drawing.Point(118, 61);
+			this.BandName.Name = "BandName";
+			this.BandName.Size = new System.Drawing.Size(145, 23);
+			this.BandName.TabIndex = 3;
+			// 
+			// SongName
+			// 
+			this.SongName.Location = new System.Drawing.Point(118, 26);
+			this.SongName.Name = "SongName";
+			this.SongName.Size = new System.Drawing.Size(145, 23);
+			this.SongName.TabIndex = 2;
+			// 
+			// EditBand
+			// 
+			this.EditBand.AutoSize = true;
+			this.EditBand.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+			this.EditBand.Location = new System.Drawing.Point(15, 61);
+			this.EditBand.Name = "EditBand";
+			this.EditBand.Size = new System.Drawing.Size(65, 25);
+			this.EditBand.TabIndex = 1;
+			this.EditBand.Text = "Band";
+			// 
+			// EditName
+			// 
+			this.EditName.AutoSize = true;
+			this.EditName.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+			this.EditName.Location = new System.Drawing.Point(15, 29);
+			this.EditName.Name = "EditName";
+			this.EditName.Size = new System.Drawing.Size(73, 25);
+			this.EditName.TabIndex = 0;
+			this.EditName.Text = "Name";
+			// 
+			// EditSongDetailsLabel
+			// 
+			this.EditSongDetailsLabel.AutoSize = true;
+			this.EditSongDetailsLabel.Font = new System.Drawing.Font("Tahoma", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+			this.EditSongDetailsLabel.Location = new System.Drawing.Point(23, 6);
+			this.EditSongDetailsLabel.Name = "EditSongDetailsLabel";
+			this.EditSongDetailsLabel.Size = new System.Drawing.Size(190, 25);
+			this.EditSongDetailsLabel.TabIndex = 3;
+			this.EditSongDetailsLabel.Text = "Edit Song Details";
+			// 
+			// EditSongPanel
+			// 
+			this.EditSongPanel.BackColor = System.Drawing.Color.PeachPuff;
+			this.EditSongPanel.Controls.Add(this.EditSongDetailsLabel);
+			this.EditSongPanel.Location = new System.Drawing.Point(91, 12);
+			this.EditSongPanel.Name = "EditSongPanel";
+			this.EditSongPanel.Size = new System.Drawing.Size(230, 41);
+			this.EditSongPanel.TabIndex = 4;
+			// 
+			// EditForm
+			// 
+			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.BackColor = System.Drawing.Color.MediumTurquoise;
+			this.ClientSize = new System.Drawing.Size(422, 316);
+			this.Controls.Add(this.EditSongPanel);
+			this.Controls.Add(this.SongDetailsGroupBox);
+			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+			this.MaximizeBox = false;
+			this.Name = "EditForm";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+			this.Text = "EditForm";
+			this.Load += new System.EventHandler(this.EditForm_Load);
+			this.SongDetailsGroupBox.ResumeLayout(false);
+			this.SongDetailsGroupBox.PerformLayout();
+			this.EditSongPanel.ResumeLayout(false);
+			this.EditSongPanel.PerformLayout();
+			this.ResumeLayout(false);
 
 		}
 
 		#endregion
 
-		private System.Windows.Forms.GroupBox songDetailsGroupBox;
-		private System.Windows.Forms.TextBox bandName;
-		private System.Windows.Forms.TextBox songName;
-		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.TextBox songYear;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Button btnSave;
+		private System.Windows.Forms.GroupBox SongDetailsGroupBox;
+		private System.Windows.Forms.TextBox BandName;
+		private System.Windows.Forms.TextBox SongName;
+		private System.Windows.Forms.Label EditBand;
+		private System.Windows.Forms.Label EditName;
+		private System.Windows.Forms.TextBox SongYear;
+		private System.Windows.Forms.Label EditYear;
+		private System.Windows.Forms.Button BtnSave;
+		private System.Windows.Forms.Label EditSongDetailsLabel;
+		private System.Windows.Forms.Panel EditSongPanel;
 	}
 }

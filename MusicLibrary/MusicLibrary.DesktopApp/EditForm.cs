@@ -1,12 +1,5 @@
 ﻿using MusicLibrary.Core;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MusicLibrary.DesktopApp
@@ -16,7 +9,7 @@ namespace MusicLibrary.DesktopApp
 	{
         #region Private Fields
 
-        private Song _song { get; set; }
+        public Song SongEdited { get; set; }
 
         #endregion Private Fields
 
@@ -25,7 +18,7 @@ namespace MusicLibrary.DesktopApp
         public EditForm(Song song)
 		{
 			InitializeComponent();
-			_song = song;
+			SongEdited = song;
 		}
 
 		#endregion Constructor
@@ -34,18 +27,24 @@ namespace MusicLibrary.DesktopApp
 
 		private void EditForm_Load(object sender, EventArgs e)
 		{
-			songName.Text = _song.Name;
-			bandName.Text = _song.Band;
-			songYear.Text = _song.YearLaunch.ToString();
+			SongName.Text = SongEdited.Name;
+			BandName.Text = SongEdited.Band;
+			SongYear.Text = SongEdited.YearLaunch.ToString();
 		}
 
-		private void btnSave_Click(object sender, EventArgs e)
+		private void BtnSave_Click(object sender, EventArgs e)
 		{
-			_song.Name = songName.Text;
-			_song.Band = bandName.Text;
-			_song.YearLaunch = Int32.Parse(songYear.Text);
+			SongEdited.Name = SongName.Text;
+			SongEdited.Band = BandName.Text;
+			SongEdited.YearLaunch = Int32.Parse(SongYear.Text);
+			this.DialogResult = DialogResult.OK;
+			this.Close();
+
+			//MusicLibrary musicLibrary = new MusicLibrary();
+			//musicLibrary.ShowDialog();
+
 		}
 
 		#endregion Event Handlers
-	}
+  	}
 }

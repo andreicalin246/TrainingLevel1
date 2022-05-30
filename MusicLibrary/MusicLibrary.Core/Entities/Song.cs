@@ -8,9 +8,10 @@ namespace MusicLibrary.Core
 {
 	public class Song
 	{
-        #region Public Properties
+		//Song song = new Song();
+		#region Public Properties
 
-        public int Id { get; set; }
+		public int Id { get; set; }
 		public string Name { get; set; }
 		public string Band { get; set; }
 		public TimeSpan Duration { get; set; }
