@@ -1,6 +1,4 @@
-﻿1. Sa termini serviciul de file
-2. Sa termini add-ul
-3. Sa mai faci un serviciu de file SongLibraryXmlService (totul trebuie salvat ca xml)
+﻿Sa mai faci un serviciu de file SongLibraryXmlService (totul trebuie salvat ca xml)
 hints:
 	serializare obiect in xml, deserializare obiect xml
-4. Sa mai faci un serviciu de file SongLibraryJsonService (totul trebuie salvat ca json)
+ Sa mai faci un serviciu de file SongLibraryJsonService (totul trebuie salvat ca json)
