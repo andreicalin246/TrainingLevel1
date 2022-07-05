@@ -6,37 +6,36 @@ namespace MusicLibrary.DesktopApp
 {
 	public partial class AddForm : Form
 	{
-
 		#region Private Fields
 
-		public Song SongAdd { get; set; }
+		public Song NewSong { get; private set; }
 
 		#endregion Private Fields
 
-		#region constructor
-		public AddForm(Song song)
+		#region Constructor
+
+		public AddForm()
 		{
 			InitializeComponent();
-			SongAdd = song;
+			NewSong = new Song();
 		}
 
 		#endregion Constructor
 
-		#region Event Handlers
+        #region Event Handlers
 
-
-		private void AddForm_Load(object sender, EventArgs e)
+        private void AddForm_Load(object sender, EventArgs e)
 		{
-			AddedSongName.Text = SongAdd.Name;
-			AddedBandName.Text = SongAdd.Band;
-			AddedSongYear.Text = SongAdd.YearLaunch.ToString();	
+			AddedSongName.Text = "";
+			AddedBandName.Text = "";
+			AddedSongYear.Text = "";	
 		}
 
 		private void BtnSave_Click(object sender, EventArgs e)
 		{
-			SongAdd.Name = AddedSongName.Text;
-			SongAdd.Band = AddedBandName.Text;
-			SongAdd.YearLaunch = Int32.Parse(AddedSongYear.Text);
+			NewSong.Name = AddedSongName.Text;
+			NewSong.Band = AddedBandName.Text;
+			NewSong.YearLaunch = Int32.Parse(AddedSongYear.Text);
 			this.DialogResult = DialogResult.OK;
 			this.Close();
 		}

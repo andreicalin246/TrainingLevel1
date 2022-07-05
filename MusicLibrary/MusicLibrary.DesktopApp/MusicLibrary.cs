@@ -9,7 +9,7 @@ namespace MusicLibrary.DesktopApp
     {
         #region Private Fields
 
-        private ISongLibraryService libraryService = new SongLibraryFileService();
+        private ISongLibraryService libraryService = new SongLibraryXmlService();
         private SongLibrary songLibrary;
 
 		#endregion Private Fields
@@ -70,23 +70,17 @@ namespace MusicLibrary.DesktopApp
             }
         }
 
-        //private void BtnAdd_Click(object sender, EventArgs e)
-        //{
-        //          if (SongList.SelectedItem != null)
-        //          {
-        //              var song = (Song)SongList.SelectedItem;
-        //              AddForm addForm = new AddForm(song);
-        //              var result = addForm.ShowDialog();
-        //              if (result == DialogResult.OK)
-        //              {
-        //                  SongLibraryService.AddSong(song, songLibrary);
-        //                  SongList.Items.Clear();
-        //                  foreach (var singleSong in songLibrary.Songs)
-        //                  {
-        //                      SongList.Items.Add(singleSong);
-        //                  }
-        //            }
-        //       }
+        private void BtnAdd_Click(object sender, EventArgs e)
+        {
+            AddForm addForm = new AddForm();
+            var result = addForm.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                var song = addForm.NewSong;
+                libraryService.AddSong(song);
+                SongList.Items.Add(song);
+            }
+        }
 
 		#endregion Events
 	}
