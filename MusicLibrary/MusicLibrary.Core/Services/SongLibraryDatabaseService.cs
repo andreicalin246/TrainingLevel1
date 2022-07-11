@@ -1,24 +1,47 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using MusicLibrary.Core.Services.Utils;
+using MySql.Data.MySqlClient;
+using System;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
-using System.Xml.Serialization;
+
 
 namespace MusicLibrary.Core.Services
 {
-    public class SongLibraryDatabaseService : ISongLibraryService
-    {
-		#region Private Fields
-
-		private const string SongLibraryConnectionString = "ServerName: Database: Trusted:";
-
-		#endregion Private Fields
-
+	public class SongLibraryDatabaseService : ISongLibraryService
+	{
 		#region Public Methods
+
+		public void Populate()
+		{
+
+			SqlCommand command = new SqlCommand("SELECT * FROM SONGS", SqlConnectionCreator.Instance());
+			SqlDataReader reader = command.ExecuteReader();
+
+			if (reader.HasRows)
+			{
+				Console.WriteLine(reader);
+				var songLibrary = SongLibrary.Instance();
+				while (reader.Read())
+				{
+					var song = new Song((int)reader["SongId"], reader["SongName"].ToString(), reader["ArtistName"].ToString(), TimeSpan.FromTicks((long)reader["SongDuration"]), (int)reader["YearLaunch"]);
+					songLibrary.Songs.Add(song);
+				}
+			}
+			reader.Close();
+			
+		}
 
 		public void AddSong(Song song)
         {
-			// todo
+			var songLibrary = SongLibrary.Instance();
+			songLibrary.Songs.Add(song);
+			SqlCommand command = new SqlCommand("INSERT INTO Songs(SongName, ArtistName, YearLaunch) VALUES('" + song.Name + "','" + song.Band + "','" + song.YearLaunch + "')", SqlConnectionCreator.Instance());
+			command.ExecuteNonQuery();
+			//command.CommandType = CommandType.Text;
+			//command.Parameters.Add("@SongName", (SqlDbType)MySqlDbType.VarChar).Value = song.Name;
+			//command.Parameters.Add("@ArtistName", (SqlDbType)MySqlDbType.VarChar).Value = song.Band;
+			//command.Parameters.Add("@YearLaunch", (SqlDbType)MySqlDbType.Int32).Value = song.YearLaunch;
 		}
 
         public void DeleteAllSongs()
@@ -68,11 +91,6 @@ namespace MusicLibrary.Core.Services
 					song.YearLaunch = songYearLaunch;
 				}
 			}
-		}
-
-        public void Populate()
-        {
-			// todo
 		}
 
 		#endregion Public Methods

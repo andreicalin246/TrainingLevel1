@@ -9,7 +9,7 @@ namespace MusicLibrary.DesktopApp
     {
         #region Private Fields
 
-        private ISongLibraryService libraryService = new SongLibraryXmlService();
+        private ISongLibraryService libraryService = new SongLibraryDatabaseService();
         private SongLibrary songLibrary;
 
 		#endregion Private Fields
@@ -80,6 +80,7 @@ namespace MusicLibrary.DesktopApp
                 libraryService.AddSong(song);
                 SongList.Items.Add(song);
             }
+            MessageBox.Show("Successfully Saved");
         }
 
 		#endregion Events
