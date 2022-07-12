@@ -12,8 +12,8 @@ namespace MusicLibrary.Core
 		#region Public Properties
 
 		public int Id { get; set; }
-		public string Name { get; set; }
-		public string Band { get; set; }
+		public string SongName { get; set; }
+		public string ArtistName { get; set; }
 		public TimeSpan Duration { get; set; }
 		public int YearLaunch { get; set; }
 
@@ -24,8 +24,8 @@ namespace MusicLibrary.Core
         public Song(int id, string name, string band, TimeSpan duration, int year)
 		{
 			Id = id;
-			Name = name;
-			Band = band;
+			SongName = name;
+			ArtistName = band;
 			Duration = duration;
 			YearLaunch = year;
 		}
@@ -40,7 +40,7 @@ namespace MusicLibrary.Core
 
 		public override string ToString()
 		{
-			return $"[{Id}]{Band} : {Name} ({YearLaunch})";
+			return $"[{Id}]{ArtistName} : {SongName} ({YearLaunch})";
 		}
 
 		#endregion Public Methods

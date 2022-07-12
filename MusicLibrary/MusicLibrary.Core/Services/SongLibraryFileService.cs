@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -14,84 +15,127 @@ namespace MusicLibrary.Core.Services
 
 		#region Public Methods
 
-		public void Populate()
+		public Song Add(Song song)
 		{
-			var songLibrary = SongLibrary.Instance();
-			var lines = File.ReadAllLines(SongLibraryFileName);
-
-			foreach (var line in lines)
+			var songs = GetAll();
+			var lastSong = songs.LastOrDefault();
+			if (lastSong == null)
 			{
-				var values = line.Split(',');
-				var songId = int.Parse(values[0]);
-				var songName = values[1];
-				var songArtiste = values[2];
-				var songDuration = TimeSpan.Parse(values[3]);
-				var songYear = int.Parse(values[4]);
-
-				var song = new Song(songId, songName, songArtiste, songDuration, songYear);
-				songLibrary.Songs.Add(song);
+				song.Id = 1;
 			}
-		}
+			else
+			{
+				song.Id = lastSong.Id + 1;
+			}
 
-		public void AddSong(Song song)
-		{
-			var songLibrary = SongLibrary.Instance();
-			songLibrary.Songs.Add(song);
 			var fileStream = File.Open(SongLibraryFileName, FileMode.Append);
 			var streamWriter = new StreamWriter(fileStream);
-			streamWriter.WriteLine("mama are mere");
+			streamWriter.WriteLine(song.Id);
+			streamWriter.WriteLine(song.SongName);
+			streamWriter.WriteLine(song.ArtistName);
+			streamWriter.WriteLine(song.Duration);
+			streamWriter.WriteLine(song.YearLaunch);
 			streamWriter.Flush();
 			streamWriter.Close();
 			fileStream.Close();
+
+			return song;
 		}
 
-		public void DisplaySongs()
+		public List<Song> GetAll()
 		{
-			var songLibrary = SongLibrary.Instance();
-			foreach (Song song in songLibrary.Songs)
-			{
-				Console.WriteLine($"Id : {song.Id} \nSong : {song.Name} \nBand: {song.Band} \nDuration: {song.Duration} \nYearLaunch: {song.YearLaunch}\n");
-			}
-		}
+			var songs = new List<Song>();
 
-		public void DisplayOneSong(int songId)
-		{
-			var songLibrary = SongLibrary.Instance();
-			foreach (Song song in songLibrary.Songs)
+			var fileStream = File.Open(SongLibraryFileName, FileMode.Open);
+			var streamReader = new StreamReader(fileStream);
+			string id = null;
+
+			do
 			{
-				if (songId == song.Id)
+				id = streamReader.ReadLine();
+				var songName = streamReader.ReadLine();
+				var artistName = streamReader.ReadLine();
+				var duration = streamReader.ReadLine();
+				var yearLaunch = streamReader.ReadLine();
+
+				if (id != null)
 				{
-					Console.WriteLine($"Id : {song.Id} \nSong : {song.Name} \nBand: {song.Band} \nDuration: {song.Duration} \nYearLaunch: {song.YearLaunch}\n");
+					var song = new Song();
+					song.Id = int.Parse(id);
+					song.SongName = songName;
+					song.ArtistName = artistName;
+					song.Duration = TimeSpan.FromTicks(long.Parse(duration));
+					song.YearLaunch = int.Parse(yearLaunch);
 				}
 			}
+			while (id != null);
+
+			streamReader.Close();
+			fileStream.Close();
+
+			return songs;
 		}
 
-		public void EditSong(int songId, string songName, string songBand, TimeSpan songDuration, int songYearLaunch)
+		public Song Get(int songId)
+		{
+			var fileStream = File.Open(SongLibraryFileName, FileMode.Open);
+			var streamReader = new StreamReader(fileStream);
+			string id = null;
+
+			do
+			{
+				id = streamReader.ReadLine();
+				var songName = streamReader.ReadLine();
+				var artistName = streamReader.ReadLine();
+				var duration = streamReader.ReadLine();
+				var yearLaunch = streamReader.ReadLine();
+
+				if (id != null && id == songId.ToString())
+				{
+					var song = new Song();
+					song.Id = int.Parse(id);
+					song.SongName = songName;
+					song.ArtistName = artistName;
+					song.Duration = TimeSpan.FromTicks(long.Parse(duration));
+					song.YearLaunch = int.Parse(yearLaunch);
+
+					return song;
+				}
+			}
+			while (id != null);
+
+			streamReader.Close();
+			fileStream.Close();
+
+			return null;
+		}
+
+		public bool Update(Song song)
 		{
 			var songLibrary = SongLibrary.Instance();
 			foreach (Song song in songLibrary.Songs)
 			{
 				if (song.Id == songId)
 				{
-					song.Name = songName;
-					song.Band = songBand;
+					song.SongName = songName;
+					song.ArtistName = songBand;
 					song.Duration = songDuration;
 					song.YearLaunch = songYearLaunch;
 				}
 			}
 		}
 
-		public void DeleteSong(int songId)
+		public bool DeleteAll()
+		{
+			var songLibrary = SongLibrary.Instance();
+			songLibrary.Songs.Clear();
+		}
+
+		public bool Delete(int songId)
 		{
 			var songLibrary = SongLibrary.Instance();
 			var songToDelete = songLibrary.Songs.Single(s => s.Id == songId);
 			songLibrary.Songs.Remove(songToDelete);
-		}
-
-		public void DeleteAllSongs()
-		{
-			var songLibrary = SongLibrary.Instance();
-			songLibrary.Songs.Clear();
 		}
 
 		#endregion Public Methods

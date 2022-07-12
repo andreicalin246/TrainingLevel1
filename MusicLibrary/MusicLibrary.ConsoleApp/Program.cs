@@ -20,27 +20,27 @@ namespace MusicLibrary.ConsoleApp
 			libraryService.Populate();
 
 			Console.WriteLine("This is one song:");
-			libraryService.DisplayOneSong(5);
+			libraryService.Get(5);
 			Console.WriteLine("------------------------\n");
 
-			libraryService.DisplaySongs();
+			libraryService.GetAll();
 
             Console.WriteLine("\nAfter edit new list!");
             Console.WriteLine("------------------------\n");
 
 			libraryService.EditSong(4, "Pita cu Unsoare", "Sandu Ciorba", new TimeSpan(0, 4, 02), 2007);
-			libraryService.DisplaySongs();
+			libraryService.GetAll();
 
 			Console.WriteLine("\nAfter delete new list!");
             Console.WriteLine("------------------------\n");
 
-			libraryService.DeleteSong(6);
-			libraryService.DisplaySongs();
+			libraryService.Delete(6);
+			libraryService.GetAll();
 
 			Console.WriteLine("The List is empty:");
 
 			libraryService.DeleteAllSongs();
-			libraryService.DisplaySongs();
+			libraryService.GetAll();
 					
 			Console.ReadLine();
         }

@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 namespace MusicLibrary.Core.Services
 {
 	// todo: rewrite this class
-	public class SongLibraryXmlService : ISongLibraryService
+	public class SongLibraryJsonService : ISongLibraryService
     {
 		#region Private Fields
 

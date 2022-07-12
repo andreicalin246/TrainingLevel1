@@ -1,21 +1,20 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace MusicLibrary.Core.Services
 {
     public interface ISongLibraryService
 	{
-		void Populate();
+		Song Add(Song song);
 
-		void AddSong(Song song);
+		List<Song> GetAll();
 
-		void DisplaySongs();
+		Song Get(int songId);
 
-		void DisplayOneSong(int songId);
+		bool Update(Song song);
 
-		void EditSong(int songId, string songName, string songBand, TimeSpan songDuration, int songYearLaunch);
+		bool Delete(int songId);
 
-		void DeleteSong(int songId);
-
-		void DeleteAllSongs();
+		bool DeleteAll();
 	}
 }

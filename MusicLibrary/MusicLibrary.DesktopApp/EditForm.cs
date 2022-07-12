@@ -26,15 +26,15 @@ namespace MusicLibrary.DesktopApp
 
 		private void EditForm_Load(object sender, EventArgs e)
 		{
-			SongName.Text = SongEdited.Name;
-			BandName.Text = SongEdited.Band;
+			SongName.Text = SongEdited.SongName;
+			BandName.Text = SongEdited.ArtistName;
 			SongYear.Text = SongEdited.YearLaunch.ToString();
 		}
 
 		private void BtnSave_Click(object sender, EventArgs e)
 		{
-			SongEdited.Name = SongName.Text;
-			SongEdited.Band = BandName.Text;
+			SongEdited.SongName = SongName.Text;
+			SongEdited.ArtistName = BandName.Text;
 			SongEdited.YearLaunch = Int32.Parse(SongYear.Text);
 			this.DialogResult = DialogResult.OK;
 			this.Close();

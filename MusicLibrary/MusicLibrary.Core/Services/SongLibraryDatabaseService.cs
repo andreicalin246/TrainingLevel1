@@ -1,95 +1,146 @@
 ﻿using MusicLibrary.Core.Services.Utils;
-using MySql.Data.MySqlClient;
 using System;
-using System.Data;
+using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-
 
 namespace MusicLibrary.Core.Services
 {
-	public class SongLibraryDatabaseService : ISongLibraryService
+    public class SongLibraryDatabaseService : ISongLibraryService
 	{
 		#region Public Methods
 
-		public void Populate()
+		public Song Add(Song song)
+        {
+			var sqlConnection = SqlConnectionCreator.Instance();
+			var query = $@"
+				INSERT INTO Songs
+					(SongName, ArtistName, YearLaunch, Duration) 
+				VALUES
+					(@SongName, @ArtistName, @YearLaunch, @Duration)
+
+				SELECT SCOPE_IDENTITY()";
+
+			using (SqlCommand command = new SqlCommand(query, sqlConnection))
+			{
+				command.Parameters.Add(new SqlParameter("@SongName", song.SongName));
+				command.Parameters.Add(new SqlParameter("@ArtistName", song.ArtistName));
+				command.Parameters.Add(new SqlParameter("@YearLaunch", song.YearLaunch));
+				command.Parameters.Add(new SqlParameter("@Duration", song.Duration.Ticks));
+
+				var sqlReader = command.ExecuteReader();
+				sqlReader.Read();
+				var id = (int)sqlReader[0];
+				song.Id = id;
+				
+				return song;
+			}
+		}
+
+		public List<Song> GetAll()
 		{
+			var sqlConnection = SqlConnectionCreator.Instance();
+			var query = @"
+				SELECT * 
+				FROM Songs";
 
-			SqlCommand command = new SqlCommand("SELECT * FROM SONGS", SqlConnectionCreator.Instance());
-			SqlDataReader reader = command.ExecuteReader();
-
-			if (reader.HasRows)
+			using (SqlCommand command = new SqlCommand(query, sqlConnection))
 			{
-				Console.WriteLine(reader);
-				var songLibrary = SongLibrary.Instance();
-				while (reader.Read())
+				var songs = new List<Song>();
+
+				var sqlReader = command.ExecuteReader();
+
+				while (sqlReader.Read())
 				{
-					var song = new Song((int)reader["SongId"], reader["SongName"].ToString(), reader["ArtistName"].ToString(), TimeSpan.FromTicks((long)reader["SongDuration"]), (int)reader["YearLaunch"]);
-					songLibrary.Songs.Add(song);
+					var song = new Song();
+					song.Id = (int)sqlReader["SongId"];
+					song.SongName = (string)sqlReader["SongName"];
+					song.ArtistName = (string)sqlReader["ArtistName"];
+					song.YearLaunch = (int)sqlReader["ArtistName"];
+					song.Duration = TimeSpan.FromTicks((long)sqlReader["ArtistName"]);
+
+					songs.Add(song);
 				}
-			}
-			reader.Close();
-			
-		}
 
-		public void AddSong(Song song)
-        {
-			var songLibrary = SongLibrary.Instance();
-			songLibrary.Songs.Add(song);
-			SqlCommand command = new SqlCommand("INSERT INTO Songs(SongName, ArtistName, YearLaunch) VALUES('" + song.Name + "','" + song.Band + "','" + song.YearLaunch + "')", SqlConnectionCreator.Instance());
-			command.ExecuteNonQuery();
-			//command.CommandType = CommandType.Text;
-			//command.Parameters.Add("@SongName", (SqlDbType)MySqlDbType.VarChar).Value = song.Name;
-			//command.Parameters.Add("@ArtistName", (SqlDbType)MySqlDbType.VarChar).Value = song.Band;
-			//command.Parameters.Add("@YearLaunch", (SqlDbType)MySqlDbType.Int32).Value = song.YearLaunch;
-		}
-
-        public void DeleteAllSongs()
-        {
-			var songLibrary = SongLibrary.Instance();
-			songLibrary.Songs.Clear();
-		}
-
-        public void DeleteSong(int songId)
-        {
-			var songLibrary = SongLibrary.Instance();
-			var songToDelete = songLibrary.Songs.Single(s => s.Id == songId);
-			songLibrary.Songs.Remove(songToDelete);
-		}
-
-        public void DisplayOneSong(int songId)
-        {
-			var songLibrary = SongLibrary.Instance();
-			foreach (Song song in songLibrary.Songs)
-			{
-				if (songId == song.Id)
-				{
-					Console.WriteLine($"Id : {song.Id} \nSong : {song.Name} \nBand: {song.Band} \nDuration: {song.Duration} \nYearLaunch: {song.YearLaunch}\n");
-				}
+				return songs;
 			}
 		}
 
-        public void DisplaySongs()
-        {
-			var songLibrary = SongLibrary.Instance();
-			foreach (Song song in songLibrary.Songs)
+		public Song Get(int songId)
+		{
+			var sqlConnection = SqlConnectionCreator.Instance();
+			var query = $@"
+				SELECT * 
+				FROM Songs
+				WHERE SongId = {songId}";
+
+			using (SqlCommand command = new SqlCommand(query, sqlConnection))
 			{
-				Console.WriteLine($"Id : {song.Id} \nSong : {song.Name} \nBand: {song.Band} \nDuration: {song.Duration} \nYearLaunch: {song.YearLaunch}\n");
+				Song song = null;
+				var sqlReader = command.ExecuteReader();
+
+				while (sqlReader.Read())
+				{
+					song = new Song();
+					song.Id = (int)sqlReader["SongId"];
+					song.SongName = (string)sqlReader["SongName"];
+					song.ArtistName = (string)sqlReader["ArtistName"];
+					song.YearLaunch = (int)sqlReader["ArtistName"];
+					song.Duration = TimeSpan.FromTicks((long)sqlReader["ArtistName"]);
+				}
+
+				return song;
 			}
 		}
 
-        public void EditSong(int songId, string songName, string songBand, TimeSpan songDuration, int songYearLaunch)
-        {
-			var songLibrary = SongLibrary.Instance();
-			foreach (Song song in songLibrary.Songs)
+		public bool Update(Song song)
+		{
+			var sqlConnection = SqlConnectionCreator.Instance();
+			var query = $@"
+				UPDATE Songs
+				SET SongName = @SongName,
+					ArtistName = @ArtistName,
+					Duration = @Duration,
+					YearLaunch = @YearLaunch
+				WHERE SongId = {song.Id}
+				";
+
+			using (SqlCommand command = new SqlCommand(query, sqlConnection))
 			{
-				if (song.Id == songId)
-				{
-					song.Name = songName;
-					song.Band = songBand;
-					song.Duration = songDuration;
-					song.YearLaunch = songYearLaunch;
-				}
+				command.Parameters.Add(new SqlParameter("@SongName", song.SongName));
+				command.Parameters.Add(new SqlParameter("@ArtistName", song.ArtistName));
+				command.Parameters.Add(new SqlParameter("@YearLaunch", song.YearLaunch));
+				command.Parameters.Add(new SqlParameter("@Duration", song.Duration.Ticks));
+
+				var result = command.ExecuteNonQuery();
+				return result > 0;
+			}
+		}
+
+		public bool DeleteAll()
+        {
+			var sqlConnection = SqlConnectionCreator.Instance();
+			var query = $@"
+				DELETE Songs";
+
+			using (SqlCommand command = new SqlCommand(query, sqlConnection))
+			{
+				var result = command.ExecuteNonQuery();
+				return result > 0;
+			}
+		}
+
+        public bool Delete(int songId)
+        {
+			var sqlConnection = SqlConnectionCreator.Instance();
+			var query = $@"
+				DELETE Songs
+				WHERE SongId = {songId}
+				";
+
+			using (SqlCommand command = new SqlCommand(query, sqlConnection))
+			{
+				var result = command.ExecuteNonQuery();
+				return result > 0;
 			}
 		}
 

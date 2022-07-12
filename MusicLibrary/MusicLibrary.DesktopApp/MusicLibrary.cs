@@ -42,7 +42,7 @@ namespace MusicLibrary.DesktopApp
             {
                 // remove from library
                 var song = (Song)SongList.SelectedItem;
-                libraryService.DeleteSong(song.Id);
+                libraryService.Delete(song.Id);
 
                 // remove from screen
                 SongList.Items.RemoveAt(SongList.Items.IndexOf(SongList.SelectedItem));
@@ -58,7 +58,7 @@ namespace MusicLibrary.DesktopApp
                 var result = editForm.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    libraryService.EditSong(song.Id, editForm.SongEdited.Name, editForm.SongEdited.Band, song.Duration, editForm.SongEdited.YearLaunch);
+                    libraryService.EditSong(song.Id, editForm.SongEdited.SongName, editForm.SongEdited.ArtistName, song.Duration, editForm.SongEdited.YearLaunch);
 
                     SongList.Items.Clear();
 
@@ -77,7 +77,7 @@ namespace MusicLibrary.DesktopApp
             if (result == DialogResult.OK)
             {
                 var song = addForm.NewSong;
-                libraryService.AddSong(song);
+                libraryService.Add(song);
                 SongList.Items.Add(song);
             }
             MessageBox.Show("Successfully Saved");

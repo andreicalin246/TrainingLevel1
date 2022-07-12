@@ -1,83 +1,79 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace MusicLibrary.Core.Services
 {
-    public class SongLibraryMemoryService : ISongLibraryService
+	public class SongLibraryMemoryService : ISongLibraryService
 	{
-		#region Public Methods
+        #region Private Fields
 
-		public void Populate()
+		private static List<Song> songs = new List<Song>();
+
+        #endregion 
+
+        #region Public Methods
+
+        public Song Add(Song song)
 		{
-			var songLibrary = SongLibrary.Instance();
-			var song1 = new Song(1, "Love Me Do", "Beatles", new TimeSpan(0, 2, 21), 1963);
-			var song2 = new Song(2, "Highway To Hell", "AC/DC", new TimeSpan(0, 3, 28), 1979);
-			var song3 = new Song(3, "Sweet Child O'Mine", "Guns N'Roses", new TimeSpan(0, 5, 21), 1987);
-			var song4 = new Song(4, "With Or Without You", "U2", new TimeSpan(0, 4, 56), 1987);
-			var song5 = new Song(5, "Crazy", "Aerosmith", new TimeSpan(0, 6, 13), 1993);
-			var song6 = new Song(6, "Zori De Zi", "Phoenix", new TimeSpan(0, 3, 44), 2005);
-
-			AddSong(song1);
-			AddSong(song2);
-			AddSong(song3);
-			AddSong(song4);
-			AddSong(song5);
-			AddSong(song6);
-		}
-
-		public void AddSong(Song song)
-		{
-			var songLibrary = SongLibrary.Instance();
-			songLibrary.Songs.Add(song);
-		}
-
-		public void DisplaySongs()
-		{
-			var songLibrary = SongLibrary.Instance();
-			foreach (Song song in songLibrary.Songs)
+			var lastSong = songs.LastOrDefault();
+			if (lastSong == null)
 			{
-				Console.WriteLine($"Id : {song.Id} \nSong : {song.Name} \nBand: {song.Band} \nDuration: {song.Duration} \nYearLaunch: {song.YearLaunch}\n");
+				song.Id = 1;
 			}
-		}
-
-		public void DisplayOneSong(int songId)
-		{
-			var songLibrary = SongLibrary.Instance();
-			foreach (Song song in songLibrary.Songs)
+			else
 			{
-				if (songId == song.Id)
-				{
-					Console.WriteLine($"Id : {song.Id} \nSong : {song.Name} \nBand: {song.Band} \nDuration: {song.Duration} \nYearLaunch: {song.YearLaunch}\n");
-				}
+				song.Id = lastSong.Id + 1;
 			}
+			
+			songs.Add(song);
+
+			return song;
 		}
 
-		public void EditSong(int songId, string songName, string songBand, TimeSpan songDuration, int songYearLaunch)
+		public List<Song> GetAll()
 		{
-			var songLibrary = SongLibrary.Instance();
-			foreach (Song song in songLibrary.Songs)
+			return songs;
+		}
+
+		public Song Get(int songId)
+		{
+			return songs.FirstOrDefault(s => s.Id == songId);
+		}
+
+		public bool Update(Song song)
+		{
+			var oldSong = Get(song.Id);
+
+			if (oldSong != null)
 			{
-				if (song.Id == songId)
-				{
-					song.Name = songName;
-					song.Band = songBand;
-					song.Duration = songDuration;
-					song.YearLaunch = songYearLaunch;
-				}
+				oldSong.SongName = song.SongName;
+				oldSong.ArtistName = song.ArtistName;
+				oldSong.Duration = song.Duration;
+				oldSong.YearLaunch = song.YearLaunch;
+
+				return true;
 			}
+
+			return false;
 		}
 
-		public void DeleteSong(int songId)
+		public bool DeleteAll()
 		{
-			var songLibrary = SongLibrary.Instance();
-			var songToDelete = songLibrary.Songs.Single(s => s.Id == songId);
-			songLibrary.Songs.Remove(songToDelete);
+			songs.Clear();
+			return true;
 		}
 
-		public void DeleteAllSongs()
+		public bool Delete(int songId)
 		{
-			var songLibrary = SongLibrary.Instance();
-			songLibrary.Songs.Clear();
+			var oldSong = Get(songId);
+			if (oldSong != null)
+			{
+				songs.Remove(oldSong);
+				return true;
+			}
+
+			return false;
 		}
 
 		#endregion Public Methods

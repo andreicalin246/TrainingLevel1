@@ -33,8 +33,8 @@ namespace MusicLibrary.DesktopApp
 
 		private void BtnSave_Click(object sender, EventArgs e)
 		{
-			NewSong.Name = AddedSongName.Text;
-			NewSong.Band = AddedBandName.Text;
+			NewSong.SongName = AddedSongName.Text;
+			NewSong.ArtistName = AddedBandName.Text;
 			NewSong.YearLaunch = Int32.Parse(AddedSongYear.Text);
 			this.DialogResult = DialogResult.OK;
 			this.Close();
