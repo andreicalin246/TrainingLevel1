@@ -6,7 +6,6 @@ using System.Xml.Serialization;
 
 namespace MusicLibrary.Core.Services
 {
-	// todo: rewrite this class
 	public class SongLibraryXmlService : ISongLibraryService
     {
 		#region Private Fields
@@ -17,80 +16,110 @@ namespace MusicLibrary.Core.Services
 
 		#region Public Methods
 
-		public void Add(Song song)
+		public Song Add(Song song)
+		{
+			var songs = GetAll();
+			var lastSong = songs.LastOrDefault();
+			if (lastSong == null)
+			{
+				song.Id = 1;
+			}
+			else
+			{
+				song.Id = lastSong.Id + 1;
+			}
+
+			songs.Add(song);
+			WriteSongs(songs);
+
+			return song;
+		}
+
+		public List<Song> GetAll()
+		{
+			var fileStream = File.Open(SongLibraryFileName, FileMode.Open);
+			var streamReader = new StreamReader(fileStream);
+			XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Song>));
+			var songs = new List<Song>();
+			try
+			{
+				songs = (List<Song>)xmlSerializer.Deserialize(streamReader);
+			}
+			catch (Exception ex)
+			{ 
+			}
+				
+			streamReader.Close();
+			fileStream.Close();
+
+			return songs;
+		}
+
+		public Song Get(int songId)
+		{
+			var songs = GetAll();
+			return songs.FirstOrDefault(x => x.Id == songId);
+		}
+
+		public bool Update(Song song)
+		{
+			var songs = GetAll();
+			var oldSong = songs.FirstOrDefault(x => x.Id == song.Id);
+
+			if (oldSong != null)
+			{
+				oldSong.SongName = song.SongName;
+				oldSong.ArtistName = song.ArtistName;
+				oldSong.Duration = song.Duration;
+				oldSong.YearLaunch = song.YearLaunch;
+
+				WriteSongs(songs);
+
+				return true;
+			}
+
+			return false;
+		}
+
+		public bool DeleteAll()
         {
-			var songLibrary = SongLibrary.Instance();
-			songLibrary.Songs.Add(song);
-			var fileStream = File.Open(SongLibraryFileName, FileMode.Truncate);
+			var fileStream = File.Open(SongLibraryFileName, FileMode.Open);
+			fileStream.SetLength(0);
+			fileStream.Close();
+			return true;
+		}
+
+        public bool Delete(int songId)
+        {
+			var songs = GetAll();
+			var oldSong = songs.FirstOrDefault(x => x.Id == songId);
+
+			if (oldSong != null)
+            {
+                songs.Remove(oldSong);
+                WriteSongs(songs);
+
+                return true;
+            }
+
+            return false;
+		}
+
+		#endregion Public Methods
+
+		#region Private Methods
+
+		private static void WriteSongs(List<Song> songs)
+		{
+			var fileStream = File.Open(SongLibraryFileName, FileMode.Create);
 			var streamWriter = new StreamWriter(fileStream);
 			XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Song>));
-			xmlSerializer.Serialize(streamWriter, songLibrary.Songs);
+			xmlSerializer.Serialize(streamWriter, songs);
 			streamWriter.Flush();
 			streamWriter.Close();
 			fileStream.Close();
 		}
 
-        public void DeleteAllSongs()
-        {
-			var songLibrary = SongLibrary.Instance();
-			songLibrary.Songs.Clear();
-		}
-
-        public void Delete(int songId)
-        {
-			var songLibrary = SongLibrary.Instance();
-			var songToDelete = songLibrary.Songs.Single(s => s.Id == songId);
-			songLibrary.Songs.Remove(songToDelete);
-		}
-
-        public void Get(int songId)
-        {
-			var songLibrary = SongLibrary.Instance();
-			foreach (Song song in songLibrary.Songs)
-			{
-				if (songId == song.Id)
-				{
-					Console.WriteLine($"Id : {song.Id} \nSong : {song.SongName} \nBand: {song.ArtistName} \nDuration: {song.Duration} \nYearLaunch: {song.YearLaunch}\n");
-				}
-			}
-		}
-
-        public void GetAll()
-        {
-			var songLibrary = SongLibrary.Instance();
-			foreach (Song song in songLibrary.Songs)
-			{
-				Console.WriteLine($"Id : {song.Id} \nSong : {song.SongName} \nBand: {song.ArtistName} \nDuration: {song.Duration} \nYearLaunch: {song.YearLaunch}\n");
-			}
-		}
-
-        public void EditSong(int songId, string songName, string songBand, TimeSpan songDuration, int songYearLaunch)
-        {
-			var songLibrary = SongLibrary.Instance();
-			foreach (Song song in songLibrary.Songs)
-			{
-				if (song.Id == songId)
-				{
-					song.SongName = songName;
-					song.ArtistName = songBand;
-					song.Duration = songDuration;
-					song.YearLaunch = songYearLaunch;
-				}
-			}
-		}
-
-        public void Populate()
-        {
-			var songLibrary = SongLibrary.Instance();
-			XmlSerializer xmlSerializer = new XmlSerializer(typeof(List<Song>));
-
-			using (var fileStream = File.OpenRead(SongLibraryFileName))
-			{
-				var songs = (List<Song>)xmlSerializer.Deserialize(fileStream);
-				songLibrary.Songs.AddRange(songs);
-			}
-		}
-
-		#endregion Public Methods
+		#endregion Private Methods
 	}
 }

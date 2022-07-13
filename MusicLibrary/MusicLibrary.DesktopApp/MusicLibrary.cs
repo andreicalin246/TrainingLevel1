@@ -19,7 +19,6 @@ namespace MusicLibrary.DesktopApp
         {
             InitializeComponent();
             songLibrary = SongLibrary.Instance();
-            libraryService.Populate();
         }
 
 		#endregion Methods
@@ -58,14 +57,13 @@ namespace MusicLibrary.DesktopApp
                 var result = editForm.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    libraryService.EditSong(song.Id, editForm.SongEdited.SongName, editForm.SongEdited.ArtistName, song.Duration, editForm.SongEdited.YearLaunch);
+                    libraryService.Update(editForm.SongEdited);
 
-                    SongList.Items.Clear();
-
-                    foreach (var singleSong in songLibrary.Songs)
-                    {
-                        SongList.Items.Add(singleSong);
-                    }
+                    //SongList.Items.Clear();
+                    //foreach (var singleSong in songLibrary.Songs)
+                    //{
+                    //    SongList.Items.Add(singleSong);
+                    //}
                 }
             }
         }

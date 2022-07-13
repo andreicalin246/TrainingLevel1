@@ -29,9 +29,11 @@ namespace MusicLibrary.Core.Services
 
 				var sqlReader = command.ExecuteReader();
 				sqlReader.Read();
-				var id = (int)sqlReader[0];
+				var id = Decimal.ToInt32((decimal)sqlReader[0]);
 				song.Id = id;
-				
+				sqlReader.Close();
+
+
 				return song;
 			}
 		}
@@ -55,11 +57,13 @@ namespace MusicLibrary.Core.Services
 					song.Id = (int)sqlReader["SongId"];
 					song.SongName = (string)sqlReader["SongName"];
 					song.ArtistName = (string)sqlReader["ArtistName"];
-					song.YearLaunch = (int)sqlReader["ArtistName"];
-					song.Duration = TimeSpan.FromTicks((long)sqlReader["ArtistName"]);
+					song.YearLaunch = (int)sqlReader["YearLaunch"];
+					song.Duration = TimeSpan.FromTicks((long)sqlReader["Duration"]);
 
 					songs.Add(song);
 				}
+
+				sqlReader.Close();
 
 				return songs;
 			}
@@ -84,9 +88,11 @@ namespace MusicLibrary.Core.Services
 					song.Id = (int)sqlReader["SongId"];
 					song.SongName = (string)sqlReader["SongName"];
 					song.ArtistName = (string)sqlReader["ArtistName"];
-					song.YearLaunch = (int)sqlReader["ArtistName"];
-					song.Duration = TimeSpan.FromTicks((long)sqlReader["ArtistName"]);
+					song.YearLaunch = (int)sqlReader["YearLaunch"];
+					song.Duration = TimeSpan.FromTicks((long)sqlReader["Duration"]);
 				}
+
+				sqlReader.Close();
 
 				return song;
 			}

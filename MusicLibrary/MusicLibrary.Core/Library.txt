@@ -1,7 +1,0 @@
-1,Love Me Do,Beatles,0.04:03:17,1963
-2,Highway To Hell,AC/DC,0.04:03:17,1979
-3,Sweet Child O'Mine,Guns N'Roses,0.04:03:17,1987
-4,With Or Without You,U2,0.04:03:17,1987
-5,Crazy,Aerosmith,0.04:03:17,1993
-6,Zori De Zi,Phoenix,0.04:03:17,2005
-7,Buna dimineatza,Zdob si zdub,0.04:03:17,2005

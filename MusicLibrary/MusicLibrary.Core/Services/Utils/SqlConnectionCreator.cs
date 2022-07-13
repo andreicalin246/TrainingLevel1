@@ -5,7 +5,7 @@ namespace MusicLibrary.Core.Services.Utils
 {
 	public sealed class SqlConnectionCreator
 	{
-		private const string SongLibraryConnectionString = "Server=(LocalDb)\\LocalDBMusicLibrary;  Database=MusicLibrary; Trusted_Connection=true";
+		private const string SongLibraryConnectionString = "Server=ANDREICALIN-PC\\SQLEXPRESS;  Database=MusicLibrary; Trusted_Connection=true";
 		private static readonly Lazy<SqlConnection> instance = new Lazy<SqlConnection>(new SqlConnection(SongLibraryConnectionString));
 
 		private SqlConnectionCreator()

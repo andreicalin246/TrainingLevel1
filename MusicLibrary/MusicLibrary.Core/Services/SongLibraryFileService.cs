@@ -33,7 +33,7 @@ namespace MusicLibrary.Core.Services
 			streamWriter.WriteLine(song.Id);
 			streamWriter.WriteLine(song.SongName);
 			streamWriter.WriteLine(song.ArtistName);
-			streamWriter.WriteLine(song.Duration);
+			streamWriter.WriteLine(song.Duration.Ticks);
 			streamWriter.WriteLine(song.YearLaunch);
 			streamWriter.Flush();
 			streamWriter.Close();
@@ -66,6 +66,8 @@ namespace MusicLibrary.Core.Services
 					song.ArtistName = artistName;
 					song.Duration = TimeSpan.FromTicks(long.Parse(duration));
 					song.YearLaunch = int.Parse(yearLaunch);
+
+					songs.Add(song);
 				}
 			}
 			while (id != null);
@@ -98,6 +100,8 @@ namespace MusicLibrary.Core.Services
 					song.ArtistName = artistName;
 					song.Duration = TimeSpan.FromTicks(long.Parse(duration));
 					song.YearLaunch = int.Parse(yearLaunch);
+					streamReader.Close();
+					fileStream.Close();
 
 					return song;
 				}
@@ -112,32 +116,71 @@ namespace MusicLibrary.Core.Services
 
 		public bool Update(Song song)
 		{
-			var songLibrary = SongLibrary.Instance();
-			foreach (Song song in songLibrary.Songs)
+			var songs = GetAll();
+			var oldSong = songs.FirstOrDefault(x => x.Id == song.Id);
+
+			if (oldSong != null)
 			{
-				if (song.Id == songId)
-				{
-					song.SongName = songName;
-					song.ArtistName = songBand;
-					song.Duration = songDuration;
-					song.YearLaunch = songYearLaunch;
-				}
+				oldSong.SongName = song.SongName;
+				oldSong.ArtistName = song.ArtistName;
+				oldSong.Duration = song.Duration;
+				oldSong.YearLaunch = song.YearLaunch;
+
+				WriteSongs(songs);
+
+				return true;
 			}
+
+			return false;
 		}
 
 		public bool DeleteAll()
 		{
-			var songLibrary = SongLibrary.Instance();
-			songLibrary.Songs.Clear();
+			var fileStream = File.Open(SongLibraryFileName, FileMode.Open);
+			fileStream.SetLength(0);
+			fileStream.Close();
+			return true;
 		}
 
 		public bool Delete(int songId)
 		{
-			var songLibrary = SongLibrary.Instance();
-			var songToDelete = songLibrary.Songs.Single(s => s.Id == songId);
-			songLibrary.Songs.Remove(songToDelete);
+			var songs = GetAll();
+			var oldSong = songs.FirstOrDefault(x => x.Id == songId);
+
+			if (oldSong != null)
+			{
+				songs.Remove(oldSong);
+				WriteSongs(songs);
+
+				return true;
+			}
+
+			return false;
 		}
 
 		#endregion Public Methods
+
+		#region Private Methods
+
+		private static void WriteSongs(List<Song> songs)
+		{
+			var fileStream = File.Open(SongLibraryFileName, FileMode.Create);
+			var streamWriter = new StreamWriter(fileStream);
+
+			foreach (var currentSong in songs)
+			{
+				streamWriter.WriteLine(currentSong.Id);
+				streamWriter.WriteLine(currentSong.SongName);
+				streamWriter.WriteLine(currentSong.ArtistName);
+				streamWriter.WriteLine(currentSong.Duration.Ticks);
+				streamWriter.WriteLine(currentSong.YearLaunch);
+			}
+
+			streamWriter.Flush();
+			streamWriter.Close();
+			fileStream.Close();
+		}
+
+		#endregion Private Methods
 	}
 }
