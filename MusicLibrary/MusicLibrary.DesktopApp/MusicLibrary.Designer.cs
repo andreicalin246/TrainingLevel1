@@ -30,48 +30,51 @@
         {
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MusicLibrary));
 			this.BtnList = new System.Windows.Forms.Button();
-			this.BtnRemove = new System.Windows.Forms.Button();
+			this.BtnDelete = new System.Windows.Forms.Button();
 			this.BtnEdit = new System.Windows.Forms.Button();
 			this.PictureBox1 = new System.Windows.Forms.PictureBox();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.label1 = new System.Windows.Forms.Label();
 			this.BtnAdd = new System.Windows.Forms.Button();
 			this.SongList = new System.Windows.Forms.ListBox();
+			this.BtnListOne = new System.Windows.Forms.Button();
+			this.BtnDeleteAll = new System.Windows.Forms.Button();
 			((System.ComponentModel.ISupportInitialize)(this.PictureBox1)).BeginInit();
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// BtnList
 			// 
-			this.BtnList.BackColor = System.Drawing.Color.GreenYellow;
+			this.BtnList.BackColor = System.Drawing.Color.Turquoise;
 			this.BtnList.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-			this.BtnList.Location = new System.Drawing.Point(12, 223);
+			this.BtnList.Location = new System.Drawing.Point(13, 223);
 			this.BtnList.Name = "BtnList";
-			this.BtnList.Size = new System.Drawing.Size(128, 34);
+			this.BtnList.Size = new System.Drawing.Size(130, 40);
 			this.BtnList.TabIndex = 1;
 			this.BtnList.Text = "List Songs";
 			this.BtnList.UseVisualStyleBackColor = false;
 			this.BtnList.Click += new System.EventHandler(this.BtnList_Click);
 			// 
-			// BtnRemove
+			// BtnDelete
 			// 
-			this.BtnRemove.BackColor = System.Drawing.Color.Tomato;
-			this.BtnRemove.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-			this.BtnRemove.Location = new System.Drawing.Point(414, 223);
-			this.BtnRemove.Name = "BtnRemove";
-			this.BtnRemove.Size = new System.Drawing.Size(128, 34);
-			this.BtnRemove.TabIndex = 2;
-			this.BtnRemove.Text = "Remove Song";
-			this.BtnRemove.UseVisualStyleBackColor = false;
-			this.BtnRemove.Click += new System.EventHandler(this.BtnRemove_Click);
+			this.BtnDelete.BackColor = System.Drawing.Color.OrangeRed;
+			this.BtnDelete.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+			this.BtnDelete.Location = new System.Drawing.Point(414, 223);
+			this.BtnDelete.Name = "BtnDelete";
+			this.BtnDelete.Size = new System.Drawing.Size(130, 40);
+			this.BtnDelete.TabIndex = 2;
+			this.BtnDelete.Text = "Delete Song";
+			this.BtnDelete.UseVisualStyleBackColor = false;
+			this.BtnDelete.Click += new System.EventHandler(this.BtnRemove_Click);
 			// 
 			// BtnEdit
 			// 
-			this.BtnEdit.BackColor = System.Drawing.Color.Turquoise;
+			this.BtnEdit.BackColor = System.Drawing.Color.Plum;
 			this.BtnEdit.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+			this.BtnEdit.ForeColor = System.Drawing.Color.Black;
 			this.BtnEdit.Location = new System.Drawing.Point(280, 223);
 			this.BtnEdit.Name = "BtnEdit";
-			this.BtnEdit.Size = new System.Drawing.Size(128, 34);
+			this.BtnEdit.Size = new System.Drawing.Size(130, 40);
 			this.BtnEdit.TabIndex = 3;
 			this.BtnEdit.Text = "Edit Song";
 			this.BtnEdit.UseVisualStyleBackColor = false;
@@ -111,11 +114,11 @@
 			// 
 			// BtnAdd
 			// 
-			this.BtnAdd.BackColor = System.Drawing.Color.GreenYellow;
-			this.BtnAdd.Font = new System.Drawing.Font("Tahoma", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+			this.BtnAdd.BackColor = System.Drawing.Color.Yellow;
+			this.BtnAdd.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
 			this.BtnAdd.Location = new System.Drawing.Point(146, 223);
 			this.BtnAdd.Name = "BtnAdd";
-			this.BtnAdd.Size = new System.Drawing.Size(128, 34);
+			this.BtnAdd.Size = new System.Drawing.Size(130, 40);
 			this.BtnAdd.TabIndex = 7;
 			this.BtnAdd.Text = "Add Song";
 			this.BtnAdd.UseVisualStyleBackColor = false;
@@ -123,25 +126,54 @@
 			// 
 			// SongList
 			// 
+			this.SongList.BackColor = System.Drawing.Color.LightCoral;
+			this.SongList.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
 			this.SongList.FormattingEnabled = true;
-			this.SongList.ItemHeight = 15;
+			this.SongList.ItemHeight = 16;
 			this.SongList.Location = new System.Drawing.Point(13, 276);
 			this.SongList.Name = "SongList";
-			this.SongList.Size = new System.Drawing.Size(529, 139);
+			this.SongList.Size = new System.Drawing.Size(529, 148);
 			this.SongList.TabIndex = 8;
+			// 
+			// BtnListOne
+			// 
+			this.BtnListOne.BackColor = System.Drawing.Color.SpringGreen;
+			this.BtnListOne.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+			this.BtnListOne.Location = new System.Drawing.Point(12, 174);
+			this.BtnListOne.Name = "BtnListOne";
+			this.BtnListOne.Size = new System.Drawing.Size(130, 40);
+			this.BtnListOne.TabIndex = 9;
+			this.BtnListOne.Text = "List One Song";
+			this.BtnListOne.UseVisualStyleBackColor = false;
+			this.BtnListOne.Click += new System.EventHandler(this.BtnListOne_Click);
+			// 
+			// BtnDeleteAll
+			// 
+			this.BtnDeleteAll.BackColor = System.Drawing.Color.DarkOrange;
+			this.BtnDeleteAll.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+			this.BtnDeleteAll.ForeColor = System.Drawing.Color.Black;
+			this.BtnDeleteAll.Location = new System.Drawing.Point(414, 174);
+			this.BtnDeleteAll.Name = "BtnDeleteAll";
+			this.BtnDeleteAll.Size = new System.Drawing.Size(130, 40);
+			this.BtnDeleteAll.TabIndex = 10;
+			this.BtnDeleteAll.Text = "Delete All";
+			this.BtnDeleteAll.UseVisualStyleBackColor = false;
+			this.BtnDeleteAll.Click += new System.EventHandler(this.BtnDeleteAll_Click);
 			// 
 			// MusicLibrary
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+			this.BackColor = System.Drawing.Color.Aqua;
 			this.ClientSize = new System.Drawing.Size(553, 443);
+			this.Controls.Add(this.BtnDeleteAll);
+			this.Controls.Add(this.BtnListOne);
 			this.Controls.Add(this.SongList);
 			this.Controls.Add(this.BtnAdd);
 			this.Controls.Add(this.panel1);
 			this.Controls.Add(this.PictureBox1);
 			this.Controls.Add(this.BtnEdit);
-			this.Controls.Add(this.BtnRemove);
+			this.Controls.Add(this.BtnDelete);
 			this.Controls.Add(this.BtnList);
 			this.Name = "MusicLibrary";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -155,12 +187,14 @@
 
         #endregion
         private System.Windows.Forms.Button BtnList;
-		private System.Windows.Forms.Button BtnRemove;
+		private System.Windows.Forms.Button BtnDelete;
 		private System.Windows.Forms.Button BtnEdit;
 		private System.Windows.Forms.PictureBox PictureBox1;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Button BtnAdd;
 		private System.Windows.Forms.ListBox SongList;
+		private System.Windows.Forms.Button BtnListOne;
+		private System.Windows.Forms.Button BtnDeleteAll;
 	}
 }

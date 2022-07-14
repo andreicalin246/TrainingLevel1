@@ -58,8 +58,14 @@ namespace MusicLibrary.Core.Services
 					song.SongName = (string)sqlReader["SongName"];
 					song.ArtistName = (string)sqlReader["ArtistName"];
 					song.YearLaunch = (int)sqlReader["YearLaunch"];
-					song.Duration = TimeSpan.FromTicks((long)sqlReader["Duration"]);
-
+					if (!DBNull.Value.Equals(sqlReader["Duration"]))
+					{
+						song.Duration = TimeSpan.FromTicks((long)sqlReader["Duration"]);
+					}
+					else
+					{
+						song.Duration = TimeSpan.FromTicks(0);
+					}
 					songs.Add(song);
 				}
 

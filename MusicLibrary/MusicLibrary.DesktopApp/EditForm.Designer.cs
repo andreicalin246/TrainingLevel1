@@ -37,8 +37,8 @@ namespace MusicLibrary.DesktopApp
 			this.SongName = new System.Windows.Forms.TextBox();
 			this.EditBand = new System.Windows.Forms.Label();
 			this.EditName = new System.Windows.Forms.Label();
-			this.EditSongDetailsLabel = new System.Windows.Forms.Label();
 			this.EditSongPanel = new System.Windows.Forms.Panel();
+			this.EditSongDetailsLabel = new System.Windows.Forms.Label();
 			this.SongDetailsGroupBox.SuspendLayout();
 			this.EditSongPanel.SuspendLayout();
 			this.SuspendLayout();
@@ -122,6 +122,15 @@ namespace MusicLibrary.DesktopApp
 			this.EditName.TabIndex = 0;
 			this.EditName.Text = "Name";
 			// 
+			// EditSongPanel
+			// 
+			this.EditSongPanel.BackColor = System.Drawing.Color.PeachPuff;
+			this.EditSongPanel.Controls.Add(this.EditSongDetailsLabel);
+			this.EditSongPanel.Location = new System.Drawing.Point(91, 12);
+			this.EditSongPanel.Name = "EditSongPanel";
+			this.EditSongPanel.Size = new System.Drawing.Size(230, 41);
+			this.EditSongPanel.TabIndex = 4;
+			// 
 			// EditSongDetailsLabel
 			// 
 			this.EditSongDetailsLabel.AutoSize = true;
@@ -131,15 +140,6 @@ namespace MusicLibrary.DesktopApp
 			this.EditSongDetailsLabel.Size = new System.Drawing.Size(190, 25);
 			this.EditSongDetailsLabel.TabIndex = 3;
 			this.EditSongDetailsLabel.Text = "Edit Song Details";
-			// 
-			// EditSongPanel
-			// 
-			this.EditSongPanel.BackColor = System.Drawing.Color.PeachPuff;
-			this.EditSongPanel.Controls.Add(this.EditSongDetailsLabel);
-			this.EditSongPanel.Location = new System.Drawing.Point(91, 12);
-			this.EditSongPanel.Name = "EditSongPanel";
-			this.EditSongPanel.Size = new System.Drawing.Size(230, 41);
-			this.EditSongPanel.TabIndex = 4;
 			// 
 			// EditForm
 			// 
@@ -173,7 +173,7 @@ namespace MusicLibrary.DesktopApp
 		private System.Windows.Forms.TextBox SongYear;
 		private System.Windows.Forms.Label EditYear;
 		private System.Windows.Forms.Button BtnSave;
-		private System.Windows.Forms.Label EditSongDetailsLabel;
 		private System.Windows.Forms.Panel EditSongPanel;
+		private System.Windows.Forms.Label EditSongDetailsLabel;
 	}
 }
